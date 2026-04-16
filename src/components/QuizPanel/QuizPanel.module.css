@@ -1,0 +1,27 @@
+.panel {
+  text-align: center;
+  padding: 1.5rem 1rem 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+}
+
+.label {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #aac;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.country {
+  margin: 0.25rem 0 0.5rem;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: #fff;
+  font-weight: 700;
+}
+
+.score {
+  margin: 0;
+  font-size: 1rem;
+  color: #ccd;
+}
