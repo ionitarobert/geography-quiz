@@ -1,6 +1,6 @@
-import { useRef, useEffect, useState } from 'react';
-import Globe from 'react-globe.gl';
-import type { CountryFeature, FeedbackState } from '../../types';
+import { useRef, useEffect, useState } from "react";
+import Globe from "react-globe.gl";
+import type { CountryFeature, FeedbackState } from "../../types";
 
 interface Props {
   countries: CountryFeature[];
@@ -10,7 +10,13 @@ interface Props {
   onCountryClick: (feature: CountryFeature) => void;
 }
 
-export default function GlobeView({ countries, target, lastClicked, feedback, onCountryClick }: Props) {
+export default function GlobeView({
+  countries,
+  target,
+  lastClicked,
+  feedback,
+  onCountryClick,
+}: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState(600);
 
@@ -27,14 +33,25 @@ export default function GlobeView({ countries, target, lastClicked, feedback, on
 
   const polygonColor = (feat: object): string => {
     const f = feat as CountryFeature;
-    if (f === lastClicked && feedback === 'correct') return 'rgba(0,200,80,0.85)';
-    if (f === lastClicked && feedback === 'wrong') return 'rgba(220,50,50,0.85)';
-    if (f === target) return 'rgba(255,215,0,0.5)';
-    return 'rgba(80,140,200,0.25)';
+    if (f === lastClicked && feedback === "correct")
+      return "rgba(0,200,80,0.85)";
+    if (f === lastClicked && feedback === "wrong")
+      return "rgba(220,50,50,0.85)";
+
+    return "rgba(80,140,200,0.25)";
   };
 
   return (
-    <div ref={containerRef} style={{ width: '100%' }}>
+    <div
+      ref={containerRef}
+      style={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "600px",
+      }}
+    >
       <Globe
         width={size}
         height={size}
@@ -42,10 +59,11 @@ export default function GlobeView({ countries, target, lastClicked, feedback, on
         backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
         polygonsData={countries}
         polygonCapColor={polygonColor}
-        polygonSideColor={() => 'rgba(0,60,100,0.4)'}
-        polygonStrokeColor={() => '#224'}
-        polygonLabel={(feat: object) => (feat as CountryFeature).properties.name}
-        onPolygonClick={(feat: object) => onCountryClick(feat as CountryFeature)}
+        polygonSideColor={() => "rgba(0,60,100,0.4)"}
+        polygonStrokeColor={() => "#224"}
+        onPolygonClick={(feat: object) =>
+          onCountryClick(feat as CountryFeature)
+        }
       />
     </div>
   );

@@ -1,27 +1,69 @@
 .panel {
-  text-align: center;
-  padding: 1.5rem 1rem 1rem;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-8) var(--space-5);
+  background: var(--color-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 1px 0 0 var(--color-border-glow);
 }
 
 .label {
   margin: 0;
-  font-size: 0.9rem;
-  color: #aac;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
 }
 
 .country {
-  margin: 0.25rem 0 0.5rem;
-  font-size: clamp(1.8rem, 5vw, 3rem);
-  color: #fff;
+  margin: 0;
+  font-size: clamp(1.75rem, 5vw, 3rem);
   font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-alt) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Fallback for contrast */
+  color: var(--color-accent);
+}
+
+.scoreRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 .score {
   margin: 0;
-  font-size: 1rem;
-  color: #ccd;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.score strong {
+  color: var(--color-score);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.progressTrack {
+  width: 160px;
+  height: 4px;
+  background: var(--color-surface-md);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-alt));
+  border-radius: 999px;
+  transition: width var(--dur-slow) var(--ease-out);
+  min-width: 4px;
 }

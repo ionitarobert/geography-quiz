@@ -10,13 +10,24 @@ interface Props {
 export default function Feedback({ feedback, correctName, clickedName }: Props) {
   if (!feedback) return null;
 
+  const isCorrect = feedback === 'correct';
+
   return (
-    <div className={`${styles.overlay} ${feedback === 'correct' ? styles.correct : styles.wrong}`}>
-      {feedback === 'correct' ? (
-        <span>Correct!</span>
-      ) : (
-        <span>Wrong — you clicked <em>{clickedName}</em>, the answer was <em>{correctName}</em></span>
-      )}
+    <div
+      role="status"
+      aria-live="polite"
+      className={`${styles.overlay} ${isCorrect ? styles.correct : styles.wrong}`}
+    >
+      <span className={styles.icon} aria-hidden="true">
+        {isCorrect ? '✓' : '✕'}
+      </span>
+      <span className={styles.message}>
+        {isCorrect ? (
+          <>Correct! That's <em>{correctName}</em></>
+        ) : (
+          <>You clicked <em>{clickedName}</em> — answer was <em>{correctName}</em></>
+        )}
+      </span>
     </div>
   );
 }

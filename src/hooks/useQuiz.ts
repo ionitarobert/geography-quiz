@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import type { CountryFeature, FeedbackState } from '../types';
+import { useState, useEffect, useCallback, useRef } from "react";
+import type { CountryFeature, FeedbackState } from "../types";
 
 function pickRandom<T>(arr: T[], exclude: T[]): T {
   const pool = arr.filter((x) => !exclude.includes(x));
@@ -17,7 +17,7 @@ export function useQuiz() {
   const recentRef = useRef<CountryFeature[]>([]);
 
   useEffect(() => {
-    fetch('/countries.geojson')
+    fetch("/countries.geojson")
       .then((r) => r.json())
       .then((data) => {
         const features: CountryFeature[] = data.features;
@@ -28,15 +28,12 @@ export function useQuiz() {
       });
   }, []);
 
-  const advance = useCallback(
-    (next: CountryFeature) => {
-      recentRef.current = [...recentRef.current.slice(-9), next];
-      setTarget(next);
-      setLastClicked(null);
-      setFeedback(null);
-    },
-    []
-  );
+  const advance = useCallback((next: CountryFeature) => {
+    recentRef.current = [...recentRef.current.slice(-9), next];
+    setTarget(next);
+    setLastClicked(null);
+    setFeedback(null);
+  }, []);
 
   const handleCountryClick = useCallback(
     (feature: CountryFeature) => {
@@ -47,9 +44,9 @@ export function useQuiz() {
 
       if (feature.properties.name === target.properties.name) {
         setScore((s) => s + 1);
-        setFeedback('correct');
+        setFeedback("correct");
       } else {
-        setFeedback('wrong');
+        setFeedback("wrong");
       }
 
       setTimeout(() => {
@@ -57,8 +54,16 @@ export function useQuiz() {
         advance(next);
       }, 1500);
     },
-    [feedback, target, countries, advance]
+    [feedback, target, countries, advance],
   );
 
-  return { countries, target, lastClicked, feedback, score, total, handleCountryClick };
+  return {
+    countries,
+    target,
+    lastClicked,
+    feedback,
+    score,
+    total,
+    handleCountryClick,
+  };
 }
