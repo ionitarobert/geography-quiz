@@ -1,0 +1,74 @@
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.divider {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+@media (min-width: 900px) {
+  .divider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.globeWrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+}
+
+.feedbackOverlay {
+  position: absolute;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.footerInner {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+@media (min-width: 900px) {
+  .footerInner {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+}
+
+.progressRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progressBarWrap {
+  flex: 1;
+  margin: 0 16px;
+}
+
+@media (min-width: 600px) {
+  .progressBarWrap {
+    margin: 0 24px;
+  }
+}
+
+.progressBar {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.tabularNum {
+  font-variant-numeric: tabular-nums;
+}

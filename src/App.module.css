@@ -1,19 +1,49 @@
-.app {
+.root {
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  height: 100dvh;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(79, 172, 254, 0.12) 0%, transparent 70%),
-    var(--color-bg);
-  overflow: hidden;
 }
 
-.globeWrapper {
-  flex: 1;
+.headerBar {
+  padding-top: 12px;
+  padding-bottom: 4px;
+}
+
+@media (min-width: 600px) {
+  .headerBar {
+    padding-top: 20px;
+    padding-bottom: 8px;
+  }
+}
+
+@media (min-width: 900px) {
+  .headerBar {
+    padding-top: 32px;
+    padding-bottom: 12px;
+  }
+}
+
+.breadcrumb {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  overflow: hidden;
-  min-height: 0;
+  gap: 16px;
+  min-height: 32px;
+}
+
+@media (min-width: 600px) {
+  .breadcrumb {
+    gap: 24px;
+  }
+}
+
+.menuButton {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
 }

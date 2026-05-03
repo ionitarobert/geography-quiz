@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import type { CountryFeature } from '../../types';
 import styles from './QuizPanel.module.css';
 
@@ -5,36 +6,45 @@ interface Props {
   target: CountryFeature | null;
   score: number;
   total: number;
+  accuracy: number;
 }
 
-export default function QuizPanel({ target, score, total }: Props) {
-  const accuracy = total === 0 ? 0 : Math.round((score / total) * 100);
-
+export default function QuizPanel({ target, score, total, accuracy }: Props) {
   return (
-    <header className={styles.panel}>
-      <p className={styles.label}>Find this country</p>
-      <h1 className={styles.country}>{target?.properties.name ?? '…'}</h1>
-      <div className={styles.scoreRow}>
-        <p className={styles.score}>
-          <strong>{score}</strong> / {total} correct
-        </p>
-        <div
-          className={styles.progressTrack}
-          role="progressbar"
-          aria-valuenow={accuracy}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-label={`Accuracy: ${accuracy}%`}
-        >
-          <div
-            className={styles.progressFill}
-            style={{ width: `${accuracy}%` }}
-          />
-        </div>
-        <p className={styles.score}>
-          <strong>{accuracy}%</strong>
-        </p>
-      </div>
-    </header>
+    <Box component="header" className={styles.header}>
+      <Typography
+        variant="overline"
+        color="text.secondary"
+        component="p"
+        className={styles.label}
+      >
+        Locate the country
+      </Typography>
+
+      <Typography variant="h1" component="h1" className={styles.title}>
+        {target?.properties.name ?? '—'}
+      </Typography>
+
+      <Box className={styles.stats}>
+        <Stat label="Correct" value={String(score)} />
+        <Box className={styles.statSeparator} sx={{ bgcolor: 'divider' }} />
+        <Stat label="Attempts" value={String(total)} />
+        <Box className={styles.statSeparator} sx={{ bgcolor: 'divider' }} />
+        <Stat label="Accuracy" value={`${accuracy}%`} />
+      </Box>
+    </Box>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <Box className={styles.statBlock}>
+      <Typography variant="h2" component="p" className={styles.statValue}>
+        {value}
+      </Typography>
+      <Typography variant="overline" color="text.secondary" component="p">
+        {label}
+      </Typography>
+    </Box>
   );
 }

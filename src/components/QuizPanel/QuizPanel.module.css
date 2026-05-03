@@ -1,69 +1,90 @@
-.panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-6) var(--space-8) var(--space-5);
-  background: var(--color-surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 1px 0 0 var(--color-border-glow);
+.header {
+  text-align: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+@media (min-width: 600px) {
+  .header {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+}
+
+@media (min-width: 900px) {
+  .header {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
 }
 
 .label {
-  margin: 0;
-  font-size: var(--text-xs);
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
+  margin-bottom: 8px;
 }
 
-.country {
-  margin: 0;
-  font-size: clamp(1.75rem, 5vw, 3rem);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-alt) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  /* Fallback for contrast */
-  color: var(--color-accent);
+@media (min-width: 600px) {
+  .label {
+    margin-bottom: 12px;
+  }
 }
 
-.scoreRow {
+.title {
+  font-size: 2rem;
+  font-style: italic;
+  margin: 0 0 12px 0;
+  min-height: 1.2em;
+  line-height: 1.1;
+}
+
+@media (min-width: 600px) {
+  .title {
+    font-size: 3rem;
+    margin-bottom: 18px;
+  }
+}
+
+@media (min-width: 900px) {
+  .title {
+    font-size: 4rem;
+    margin-bottom: 24px;
+  }
+}
+
+.stats {
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
+  justify-content: center;
+  align-items: stretch;
+  gap: 20px;
 }
 
-.score {
-  margin: 0;
-  font-size: var(--text-sm);
-  color: var(--color-text-secondary);
+@media (min-width: 600px) {
+  .stats {
+    gap: 32px;
+  }
 }
 
-.score strong {
-  color: var(--color-score);
-  font-weight: 700;
+.statBlock {
+  min-width: 70px;
+}
+
+@media (min-width: 600px) {
+  .statBlock {
+    min-width: 80px;
+  }
+}
+
+.statValue {
+  font-size: 1.35rem;
   font-variant-numeric: tabular-nums;
+  margin: 0;
 }
 
-.progressTrack {
-  width: 160px;
-  height: 4px;
-  background: var(--color-surface-md);
-  border-radius: 999px;
-  overflow: hidden;
+@media (min-width: 900px) {
+  .statValue {
+    font-size: 2rem;
+  }
 }
 
-.progressFill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-alt));
-  border-radius: 999px;
-  transition: width var(--dur-slow) var(--ease-out);
-  min-width: 4px;
+.statSeparator {
+  width: 1px;
 }

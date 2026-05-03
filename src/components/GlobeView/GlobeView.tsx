@@ -1,22 +1,25 @@
-import { useRef, useEffect, useState } from "react";
-import Globe from "react-globe.gl";
-import type { CountryFeature, FeedbackState } from "../../types";
+import { useRef, useEffect, useState } from 'react';
+import Globe, { type GlobeMethods } from 'react-globe.gl';
+import { useTheme } from '@mui/material/styles';
+import type { CountryFeature } from '../../types';
+import styles from './GlobeView.module.css';
 
 interface Props {
   countries: CountryFeature[];
-  target: CountryFeature | null;
-  lastClicked: CountryFeature | null;
-  feedback: FeedbackState;
+  getCountryColor: (feature: CountryFeature) => string;
   onCountryClick: (feature: CountryFeature) => void;
+  onCountryHover?: (feature: CountryFeature | null) => void;
+  globeRef?: React.MutableRefObject<GlobeMethods | undefined>;
 }
 
 export default function GlobeView({
   countries,
-  target,
-  lastClicked,
-  feedback,
+  getCountryColor,
   onCountryClick,
+  onCountryHover,
+  globeRef,
 }: Props) {
+  const theme = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState(600);
 
@@ -24,45 +27,43 @@ export default function GlobeView({
     const el = containerRef.current;
     if (!el) return;
     const ro = new ResizeObserver((entries) => {
-      const { width } = entries[0].contentRect;
-      setSize(Math.min(width, window.innerHeight * 0.75));
+      const { width, height } = entries[0].contentRect;
+      const next = Math.min(width, height || window.innerHeight * 0.6);
+      if (next > 0) setSize(next);
     });
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
 
-  const polygonColor = (feat: object): string => {
-    const f = feat as CountryFeature;
-    if (f === lastClicked && feedback === "correct")
-      return "rgba(0,200,80,0.85)";
-    if (f === lastClicked && feedback === "wrong")
-      return "rgba(220,50,50,0.85)";
-
-    return "rgba(80,140,200,0.25)";
-  };
-
   return (
-    <div
-      ref={containerRef}
-      style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "600px",
-      }}
-    >
+    <div ref={containerRef} className={styles.container}>
       <Globe
+        ref={globeRef}
         width={size}
         height={size}
-        globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-        backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+        backgroundColor="rgba(0,0,0,0)"
+        showGlobe
+        showAtmosphere
+        atmosphereColor={theme.palette.secondary.main}
+        atmosphereAltitude={0.18}
+        globeMaterial={
+          {
+            color: '#ffffff',
+            opacity: 0.95,
+            transparent: true,
+            dispose: () => {},
+          } as never
+        }
         polygonsData={countries}
-        polygonCapColor={polygonColor}
-        polygonSideColor={() => "rgba(0,60,100,0.4)"}
-        polygonStrokeColor={() => "#224"}
-        onPolygonClick={(feat: object) =>
-          onCountryClick(feat as CountryFeature)
+        polygonCapColor={(feat: object) => getCountryColor(feat as CountryFeature)}
+        polygonSideColor={() => 'rgba(26, 26, 26, 0.04)'}
+        polygonStrokeColor={() => 'rgba(26, 26, 26, 0.45)'}
+        polygonAltitude={0.005}
+        onPolygonClick={(feat: object) => onCountryClick(feat as CountryFeature)}
+        onPolygonHover={
+          onCountryHover
+            ? (feat: object | null) => onCountryHover(feat as CountryFeature | null)
+            : undefined
         }
       />
     </div>
