@@ -2,17 +2,18 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 0;
 }
 
 .divider {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 @media (min-width: 900px) {
   .divider {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 8px;
+    margin-bottom: 8px;
   }
 }
 
@@ -36,14 +37,14 @@
 }
 
 .footerInner {
-  padding-top: 8px;
-  padding-bottom: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 @media (min-width: 900px) {
   .footerInner {
-    padding-top: 14px;
-    padding-bottom: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 }
 
