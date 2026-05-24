@@ -3,6 +3,7 @@ import { Box, Container, Divider, Fade, Typography } from '@mui/material';
 import type { GlobeMethods } from 'react-globe.gl';
 import GlobeView from '../GlobeView';
 import InfoCard, { type AtlasView } from './InfoCard';
+import MapLoadError from '../MapLoadError';
 import { useCountries } from '../../hooks/useCountries';
 import { useCountryInfo } from '../../hooks/useCountryInfo';
 import type { CountryFeature } from '../../types';
@@ -17,7 +18,7 @@ const RESET_ALTITUDE = 2.5;
 const TRANSITION_MS = 1200;
 
 export default function Atlas() {
-  const countries = useCountries();
+  const { countries, error: countriesError, retry: retryCountries } = useCountries();
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
   const [selected, setSelected] = useState<CountryFeature | null>(null);
   const [hovered, setHovered] = useState<CountryFeature | null>(null);
@@ -89,6 +90,10 @@ export default function Atlas() {
     [selected, hovered],
   );
 
+  if (countriesError) {
+    return <MapLoadError onRetry={retryCountries} />;
+  }
+
   return (
     <>
       <Container maxWidth="md" className={styles.main}>
@@ -143,7 +148,9 @@ export default function Atlas() {
                   data={info.data}
                   loading={info.loading}
                   notFound={info.notFound}
+                  error={info.error}
                   onClose={handleClose}
+                  onRetry={info.retry}
                   onToggleView={handleToggleView}
                 />
               )}
@@ -159,6 +166,29 @@ export default function Atlas() {
             </Typography>
           )}
         </Container>
+        <Typography
+          variant="caption"
+          color="text.secondary"
+          component="p"
+          className={styles.credit}
+        >
+          Country data from{' '}
+          <a
+            href="https://www.apicountries.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            apicountries.com
+          </a>
+          {' '}/{' '}
+          <a
+            href="https://restcountries.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            REST Countries
+          </a>
+        </Typography>
       </Box>
     </>
   );

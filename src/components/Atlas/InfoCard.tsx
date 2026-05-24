@@ -1,4 +1,4 @@
-import { Box, IconButton, Paper, Skeleton, Typography } from '@mui/material';
+import { Box, Button, IconButton, Paper, Skeleton, Typography } from '@mui/material';
 import type { CountryInfo } from '../../types';
 import styles from './InfoCard.module.css';
 
@@ -10,7 +10,9 @@ interface Props {
   data: CountryInfo | null;
   loading: boolean;
   notFound: boolean;
+  error: Error | null;
   onClose: () => void;
+  onRetry: () => void;
   onToggleView: () => void;
 }
 
@@ -20,7 +22,9 @@ export default function InfoCard({
   data,
   loading,
   notFound,
+  error,
   onClose,
+  onRetry,
   onToggleView,
 }: Props) {
   return (
@@ -52,14 +56,26 @@ export default function InfoCard({
 
       {loading && <SkeletonBody />}
 
-      {!loading && notFound && (
+      {!loading && error && (
+        <Box className={styles.errorBody}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Couldn't load details for{' '}
+            <span className={styles.emphasis}>{countryName}</span>.
+          </Typography>
+          <Button size="small" variant="outlined" onClick={onRetry}>
+            Retry
+          </Button>
+        </Box>
+      )}
+
+      {!loading && !error && notFound && (
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           We couldn't find details for{' '}
           <span className={styles.emphasis}>{countryName}</span>.
         </Typography>
       )}
 
-      {!loading && !notFound && data && (
+      {!loading && !error && !notFound && data && (
         <>
           {view === 'country' ? (
             <CountryBody data={data} />
