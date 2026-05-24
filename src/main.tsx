@@ -12,12 +12,15 @@ import '@fontsource/cormorant-garamond/600.css';
 import './index.css';
 import App from './App.tsx';
 import theme from './theme';
+import ErrorBoundary from './components/ErrorBoundary';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </ThemeProvider>
   </StrictMode>,
 );

@@ -1,0 +1,70 @@
+.root {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.eyebrow {
+  letter-spacing: 0.4em;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-style: italic;
+  margin: 0;
+}
+
+.message {
+  max-width: 42ch;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.details {
+  width: 100%;
+  max-width: 520px;
+  margin-top: 8px;
+  text-align: left;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.details summary {
+  cursor: pointer;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  opacity: 0.65;
+}
+
+.detailsBody {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: rgba(26, 26, 26, 0.04);
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.78rem;
+}
+
+.cta {
+  margin-top: 8px;
+  min-width: 200px;
+  border-radius: 999px;
+  padding: 10px 28px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
