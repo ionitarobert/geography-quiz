@@ -1,14 +1,18 @@
 import { Box, Button, Container, Typography } from '@mui/material';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { getAccuracyVerdict } from '../../utils';
 import type { QuizResult } from '../../types';
 import styles from './Result.module.css';
 
-interface Props {
-  result: QuizResult;
-  onPlayAgain: () => void;
-}
+export default function Result() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const result = location.state as QuizResult | null;
 
-export default function Result({ result, onPlayAgain }: Props) {
+  if (!result) {
+    return <Navigate to="/select" replace />;
+  }
+
   const { score, total, accuracy } = result;
   const verdict = getAccuracyVerdict(accuracy);
 
@@ -36,7 +40,7 @@ export default function Result({ result, onPlayAgain }: Props) {
         <Button
           variant="contained"
           size="large"
-          onClick={onPlayAgain}
+          onClick={() => navigate('/select')}
           className={styles.cta}
         >
           Play again

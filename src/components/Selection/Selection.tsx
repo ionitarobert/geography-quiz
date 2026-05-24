@@ -1,24 +1,22 @@
 import { Box, Button, Container, Typography } from '@mui/material';
-import type { QuestionLimit } from '../../types';
+import { useNavigate } from 'react-router-dom';
 import styles from './Selection.module.css';
-
-interface Props {
-  onSelect: (limit: QuestionLimit) => void;
-}
 
 interface Option {
   label: string;
-  value: QuestionLimit;
+  path: string;
 }
 
 const OPTIONS: Option[] = [
-  { label: '5', value: 5 },
-  { label: '10', value: 10 },
-  { label: '20', value: 20 },
-  { label: 'Unlimited', value: null },
+  { label: '5', path: '/quiz/5' },
+  { label: '10', path: '/quiz/10' },
+  { label: '20', path: '/quiz/20' },
+  { label: 'Unlimited', path: '/quiz/unlimited' },
 ];
 
-export default function Selection({ onSelect }: Props) {
+export default function Selection() {
+  const navigate = useNavigate();
+
   return (
     <Container maxWidth="sm" className={styles.root}>
       <Box className={styles.content}>
@@ -36,7 +34,7 @@ export default function Selection({ onSelect }: Props) {
               key={opt.label}
               variant="outlined"
               size="large"
-              onClick={() => onSelect(opt.value)}
+              onClick={() => navigate(opt.path)}
               className={styles.option}
             >
               {opt.label}

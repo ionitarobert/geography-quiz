@@ -8,8 +8,6 @@ export interface CountryFeature extends Feature<Geometry, CountryProperties> {}
 
 export type FeedbackState = null | 'correct' | 'wrong';
 
-export type Stage = 'intro' | 'select' | 'quiz' | 'result' | 'atlas';
-
 export type QuestionLimit = 5 | 10 | 20 | null;
 
 export interface QuizResult {

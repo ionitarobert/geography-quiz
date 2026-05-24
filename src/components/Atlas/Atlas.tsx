@@ -3,6 +3,7 @@ import { Box, Container, Divider, Fade, Typography } from '@mui/material';
 import type { GlobeMethods } from 'react-globe.gl';
 import GlobeView from '../GlobeView';
 import InfoCard, { type AtlasView } from './InfoCard';
+import { useCountries } from '../../hooks/useCountries';
 import { useCountryInfo } from '../../hooks/useCountryInfo';
 import type { CountryFeature } from '../../types';
 import styles from './Atlas.module.css';
@@ -15,11 +16,8 @@ const CAPITAL_ALTITUDE = 0.65;
 const RESET_ALTITUDE = 2.5;
 const TRANSITION_MS = 1200;
 
-interface Props {
-  countries: CountryFeature[];
-}
-
-export default function Atlas({ countries }: Props) {
+export default function Atlas() {
+  const countries = useCountries();
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
   const [selected, setSelected] = useState<CountryFeature | null>(null);
   const [hovered, setHovered] = useState<CountryFeature | null>(null);

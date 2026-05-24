@@ -1,12 +1,10 @@
 import { Box, Button, Container, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import styles from './Intro.module.css';
 
-interface Props {
-  onStart: () => void;
-  onExplore: () => void;
-}
+export default function Intro() {
+  const navigate = useNavigate();
 
-export default function Intro({ onStart, onExplore }: Props) {
   return (
     <Container maxWidth="sm" className={styles.root}>
       <Box className={styles.content}>
@@ -26,7 +24,7 @@ export default function Intro({ onStart, onExplore }: Props) {
           <Button
             variant="contained"
             size="large"
-            onClick={onStart}
+            onClick={() => navigate('/select')}
             className={styles.cta}
           >
             Start quiz
@@ -34,7 +32,7 @@ export default function Intro({ onStart, onExplore }: Props) {
           <Button
             variant="outlined"
             size="large"
-            onClick={onExplore}
+            onClick={() => navigate('/atlas')}
             className={styles.cta}
           >
             Explore atlas

@@ -1,8 +1,9 @@
 import { useCallback, useEffect } from 'react';
 import { Box, Container, Divider, Fade, LinearProgress, Typography } from '@mui/material';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useQuiz } from '../../hooks/useQuiz';
 import { computeAccuracy } from '../../utils';
-import type { CountryFeature, QuestionLimit, QuizResult } from '../../types';
+import type { CountryFeature, QuestionLimit } from '../../types';
 import QuizPanel from '../QuizPanel';
 import GlobeView from '../GlobeView';
 import Feedback from '../Feedback';
@@ -12,12 +13,25 @@ const COLOR_BASE = 'rgba(26, 26, 26, 0.06)';
 const COLOR_CORRECT = 'rgba(47, 110, 79, 0.55)';
 const COLOR_WRONG = 'rgba(168, 70, 58, 0.55)';
 
-interface Props {
-  limit: QuestionLimit;
-  onFinish: (result: QuizResult) => void;
+function parseLimit(raw: string | undefined): QuestionLimit | 'invalid' {
+  if (raw === 'unlimited') return null;
+  if (raw === '5' || raw === '10' || raw === '20') return Number(raw) as QuestionLimit;
+  return 'invalid';
 }
 
-export default function Quiz({ limit, onFinish }: Props) {
+export default function Quiz() {
+  const { limit: limitParam } = useParams<{ limit?: string }>();
+  const parsed = parseLimit(limitParam);
+
+  if (parsed === 'invalid') {
+    return <Navigate to="/select" replace />;
+  }
+
+  return <QuizGame limit={parsed} />;
+}
+
+function QuizGame({ limit }: { limit: QuestionLimit }) {
+  const navigate = useNavigate();
   const {
     countries,
     target,
@@ -36,8 +50,10 @@ export default function Quiz({ limit, onFinish }: Props) {
   const progressLabel = limit === null ? `${total}` : `${total} / ${limit}`;
 
   useEffect(() => {
-    if (finished) onFinish({ score, total, accuracy });
-  }, [finished, score, total, accuracy, onFinish]);
+    if (finished) {
+      navigate('/result', { state: { score, total, accuracy }, replace: true });
+    }
+  }, [finished, score, total, accuracy, navigate]);
 
   const getCountryColor = useCallback(
     (feature: CountryFeature): string => {
