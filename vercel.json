@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/api/countries/:path*", "destination": "https://www.apicountries.com/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
