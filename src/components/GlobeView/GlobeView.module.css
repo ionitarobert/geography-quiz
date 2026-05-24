@@ -4,17 +4,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 280px;
-}
-
-@media (min-width: 600px) {
-  .container {
-    min-height: 360px;
-  }
-}
-
-@media (min-width: 900px) {
-  .container {
-    min-height: 460px;
-  }
+  min-height: 180px;
 }
