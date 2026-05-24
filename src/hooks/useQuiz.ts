@@ -9,7 +9,7 @@ function pickRandom<T>(arr: T[], exclude: T[]): T {
 }
 
 export function useQuiz(limit: QuestionLimit) {
-  const countries = useCountries();
+  const { countries, loading, error, retry } = useCountries();
   const [target, setTarget] = useState<CountryFeature | null>(null);
   const [lastClicked, setLastClicked] = useState<CountryFeature | null>(null);
   const [feedback, setFeedback] = useState<FeedbackState>(null);
@@ -59,6 +59,9 @@ export function useQuiz(limit: QuestionLimit) {
 
   return {
     countries,
+    loading,
+    error,
+    retry,
     target,
     lastClicked,
     feedback,

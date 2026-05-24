@@ -7,6 +7,7 @@ import type { CountryFeature, QuestionLimit } from '../../types';
 import QuizPanel from '../QuizPanel';
 import GlobeView from '../GlobeView';
 import Feedback from '../Feedback';
+import MapLoadError from '../MapLoadError';
 import styles from './Quiz.module.css';
 
 const COLOR_BASE = 'rgba(26, 26, 26, 0.06)';
@@ -34,6 +35,8 @@ function QuizGame({ limit }: { limit: QuestionLimit }) {
   const navigate = useNavigate();
   const {
     countries,
+    error: countriesError,
+    retry: retryCountries,
     target,
     lastClicked,
     feedback,
@@ -64,6 +67,10 @@ function QuizGame({ limit }: { limit: QuestionLimit }) {
     },
     [lastClicked, feedback],
   );
+
+  if (countriesError) {
+    return <MapLoadError onRetry={retryCountries} />;
+  }
 
   return (
     <>
