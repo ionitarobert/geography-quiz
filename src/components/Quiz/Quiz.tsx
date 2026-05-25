@@ -1,14 +1,15 @@
-import { useCallback, useEffect } from 'react';
+import { Suspense, lazy, useCallback, useEffect } from 'react';
 import { Box, Container, Divider, Fade, LinearProgress, Typography } from '@mui/material';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useQuiz } from '../../hooks/useQuiz';
 import { computeAccuracy } from '../../utils';
 import type { CountryFeature, QuestionLimit } from '../../types';
 import QuizPanel from '../QuizPanel';
-import GlobeView from '../GlobeView';
 import Feedback from '../Feedback';
 import MapLoadError from '../MapLoadError';
 import styles from './Quiz.module.css';
+
+const GlobeView = lazy(() => import('../GlobeView'));
 
 const COLOR_BASE = 'rgba(26, 26, 26, 0.06)';
 const COLOR_CORRECT = 'rgba(47, 110, 79, 0.55)';
@@ -87,11 +88,13 @@ function QuizGame({ limit }: { limit: QuestionLimit }) {
         </Divider>
 
         <Box className={styles.globeWrapper}>
-          <GlobeView
-            countries={countries}
-            getCountryColor={getCountryColor}
-            onCountryClick={handleCountryClick}
-          />
+          <Suspense fallback={null}>
+            <GlobeView
+              countries={countries}
+              getCountryColor={getCountryColor}
+              onCountryClick={handleCountryClick}
+            />
+          </Suspense>
           <Fade in={Boolean(feedback)} unmountOnExit>
             <Box className={styles.feedbackOverlay}>
               <Feedback

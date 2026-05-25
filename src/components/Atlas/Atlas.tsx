@@ -1,13 +1,14 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Box, Container, Divider, Fade, Typography } from '@mui/material';
 import type { GlobeMethods } from 'react-globe.gl';
-import GlobeView from '../GlobeView';
 import InfoCard, { type AtlasView } from './InfoCard';
 import MapLoadError from '../MapLoadError';
 import { useCountries } from '../../hooks/useCountries';
 import { useCountryInfo } from '../../hooks/useCountryInfo';
 import type { CountryFeature } from '../../types';
 import styles from './Atlas.module.css';
+
+const GlobeView = lazy(() => import('../GlobeView'));
 
 const COLOR_BASE = 'rgba(26, 26, 26, 0.06)';
 const COLOR_HOVER = 'rgba(138, 122, 92, 0.28)';
@@ -127,13 +128,15 @@ export default function Atlas() {
           className={styles.globeWrapper}
           sx={{ cursor: hovered ? 'pointer' : 'default' }}
         >
-          <GlobeView
-            countries={countries}
-            getCountryColor={getCountryColor}
-            onCountryClick={handleCountryClick}
-            onCountryHover={setHovered}
-            globeRef={globeRef}
-          />
+          <Suspense fallback={null}>
+            <GlobeView
+              countries={countries}
+              getCountryColor={getCountryColor}
+              onCountryClick={handleCountryClick}
+              onCountryHover={setHovered}
+              globeRef={globeRef}
+            />
+          </Suspense>
         </Box>
       </Container>
 

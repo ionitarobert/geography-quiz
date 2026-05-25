@@ -1,5 +1,6 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useGlobePrefetch } from '../../hooks/useGlobePrefetch';
 import styles from './Selection.module.css';
 
 interface Option {
@@ -16,6 +17,7 @@ const OPTIONS: Option[] = [
 
 export default function Selection() {
   const navigate = useNavigate();
+  useGlobePrefetch();
 
   return (
     <Container maxWidth="sm" className={styles.root}>

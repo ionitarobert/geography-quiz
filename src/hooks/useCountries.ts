@@ -7,7 +7,7 @@ const TIMEOUT_MS = 10_000;
 let cached: CountryFeature[] | null = null;
 let inflight: Promise<CountryFeature[]> | null = null;
 
-function loadCountries(): Promise<CountryFeature[]> {
+export function loadCountries(): Promise<CountryFeature[]> {
   if (cached) return Promise.resolve(cached);
   if (inflight) return inflight;
 

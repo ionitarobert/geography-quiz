@@ -1,10 +1,12 @@
+import { lazy } from 'react';
 import { Navigate, createBrowserRouter } from 'react-router-dom';
 import Layout from './components/Layout';
 import Intro from './components/Intro';
-import Selection from './components/Selection';
-import Quiz from './components/Quiz';
-import Result from './components/Result';
-import Atlas from './components/Atlas';
+
+const Selection = lazy(() => import('./components/Selection'));
+const Quiz = lazy(() => import('./components/Quiz'));
+const Result = lazy(() => import('./components/Result'));
+const Atlas = lazy(() => import('./components/Atlas'));
 
 export const router = createBrowserRouter([
   {

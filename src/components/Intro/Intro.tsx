@@ -1,9 +1,11 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useGlobePrefetch } from '../../hooks/useGlobePrefetch';
 import styles from './Intro.module.css';
 
 export default function Intro() {
   const navigate = useNavigate();
+  useGlobePrefetch();
 
   return (
     <Container maxWidth="sm" className={styles.root}>
