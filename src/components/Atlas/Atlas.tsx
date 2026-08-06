@@ -15,7 +15,7 @@ const COLOR_HOVER = 'rgba(138, 122, 92, 0.28)';
 const COLOR_SELECTED = 'rgba(138, 122, 92, 0.55)';
 const COUNTRY_ALTITUDE = 1.6;
 const CAPITAL_ALTITUDE = 0.65;
-const RESET_ALTITUDE = 2.5;
+const RESET_ALTITUDE = 2.0;
 const TRANSITION_MS = 1200;
 
 export default function Atlas() {
